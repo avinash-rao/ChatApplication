@@ -196,6 +196,9 @@ button.accent {
     padding-left: 68px;
     position: relative;
 }
+#chat-page .right-aligned{
+    text-align: right;
+}
 
 #chat-page .chat-message i {
     position: absolute;
