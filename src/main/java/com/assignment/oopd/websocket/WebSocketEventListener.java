@@ -1,6 +1,7 @@
 package com.assignment.oopd.websocket;
 
 import com.assignment.oopd.models.ChatMessage;
+import com.assignment.oopd.services.ChatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class WebSocketEventListener {
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
+
+    @Autowired
+    private ChatService chatService;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -37,6 +41,8 @@ public class WebSocketEventListener {
             chatMessage.setType(ChatMessage.MessageType.LEAVE);
             chatMessage.setSender(username);
             chatMessage.setRoomId(roomId);
+
+            chatService.leaveRoom(roomId);
             messagingTemplate.convertAndSend("/topic/"+roomId, chatMessage);
         }
     }

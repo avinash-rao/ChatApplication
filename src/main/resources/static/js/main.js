@@ -94,7 +94,9 @@ function joinRoom(event) {
     username = document.querySelector("#name-to-join").value.trim();
     roomId = document.querySelector("#roomid").value.trim();
     if (evaluation(username, roomId)) {
+
         if (roomIdAlreadyExists(roomId) && roomIsNotFull(roomId) == true) {
+
             connect();
         } else {
             if (roomIdAlreadyExists(roomId) == false) {

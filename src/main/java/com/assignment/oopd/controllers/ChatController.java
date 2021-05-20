@@ -48,17 +48,9 @@ public class ChatController {
 
         if (!chatService.getRoomIds().contains(chatService.getRoomId())) {
             chatService.getRoomIds().add(chatService.getRoomId());
-            Integer[] room_cap = new Integer[] { 0, chatService.getCapacity() };
-            chatService.getRoomCapacity().putIfAbsent(chatService.getRoomId(), room_cap);
+            chatService.addRoom(chatService.getRoomId(), chatService.getCapacity());
         }
-
-        Integer[] b = chatService.getRoomCapacity().get(chatService.getRoomId());
-        if (b[1] == b[0]) {
-
-        } else if (b[1] > b[0]) {
-            b[0]++;
-        }
-
+        chatService.joinRoom(chatService.getRoomId());
         messagingTemplate.convertAndSend("/topic/" + chatService.getRoomId(), chatMessage);
     }
 
@@ -72,12 +64,7 @@ public class ChatController {
 
     @GetMapping("/roomid-capacity-check")
     public boolean roomIsNotFull(@RequestParam(value = "room-id") String roomId) {
-        Integer[] b = chatService.getRoomCapacity().get(roomId);
-        if (b[0] != b[1]) {
-            return true;
-        } else {
-            return false;
-        }
+        return chatService.checkCapacity(roomId);
     }
 
     @GetMapping("/roomid-capacity-decrease")
