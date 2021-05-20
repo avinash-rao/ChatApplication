@@ -10,6 +10,7 @@ var messageForm = document.querySelector("#messageForm");
 var messageInput = document.querySelector("#message");
 var messageArea = document.querySelector("#messageArea");
 var groupchat = document.querySelector("#group-chat");
+var roomCapacity = document.querySelector("#room-capacity");
 var onechat = document.querySelector("#one-chat");
 var connectingElement = document.querySelector(".connecting");
 
@@ -93,7 +94,7 @@ function joinRoom(event) {
     username = document.querySelector("#name-to-join").value.trim();
     roomId = document.querySelector("#roomid").value.trim();
     if (evaluation(username, roomId)) {
-        if (roomIdAlreadyExists(roomId)) {
+        if (roomIdAlreadyExists(roomId) && roomIsNotFull(roomId) == true) {
             connect();
         } else {
             if (roomIdAlreadyExists(roomId) == false) {
@@ -165,18 +166,17 @@ function onMessageReceived(payload) {
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
-        afterUserLeft(message.roomId);
     } else {
         messageElement.classList.add('chat-message');
 
-        if (message.sender != username) {
-            var avatarElement = document.createElement('i');
-            var avatarText = document.createTextNode(message.sender[0]);
-            avatarElement.appendChild(avatarText);
-            avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        // if (message.sender != username) {
+        //     var avatarElement = document.createElement('i');
+        //     var avatarText = document.createTextNode(message.sender[0]);
+        //     avatarElement.appendChild(avatarText);
+        //     avatarElement.style['background-color'] = getAvatarColor(message.sender);
 
-            messageElement.appendChild(avatarElement);
-        }
+        //     messageElement.appendChild(avatarElement);
+        // }
         var usernameElement = document.createElement('span');
         if (message.sender == username) {
 
@@ -186,9 +186,11 @@ function onMessageReceived(payload) {
 
         } else {
             var usernameText = document.createTextNode(message.sender);
+
         }
 
         usernameElement.appendChild(usernameText);
+        usernameElement.style['color'] = getAvatarColor(message.sender);
         messageElement.appendChild(usernameElement);
     }
 
@@ -251,25 +253,6 @@ function roomIsNotFull(roomId) {
 }
 
 var loaded = false;
-
-function afterUserLeft(roomId) {
-
-    jQuery("#loader").show();
-    var outsideVar;
-    $.ajax({
-        url: "/roomid-capacity-decrease?room-id=" + roomId,
-        type: "get",
-        async: false,
-        success: function(abc) {
-            console.log("User Left");
-        },
-        error: function() {
-            console.log("Error occured in ajax call to roomid-capacity-decrease");
-        }
-    });
-
-    return false;
-}
 
 createRoomForm.addEventListener("submit", createRoom, true);
 joinRoomForm.addEventListener("submit", joinRoom, true);

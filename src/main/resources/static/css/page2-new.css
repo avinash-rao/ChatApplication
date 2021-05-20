@@ -153,6 +153,10 @@ body {
   color: #43464b;
 }
 
+.right-aligned {
+  text-align: right;
+}
+
 .hidden {
   display: none !important;
 }
