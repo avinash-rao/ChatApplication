@@ -152,6 +152,11 @@ body {
 #chat-page .chat-message p {
   color: #43464b;
 }
+#chat-page .event-message {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+}
 
 .right-aligned {
   text-align: right;

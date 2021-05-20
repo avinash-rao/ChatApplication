@@ -65,7 +65,7 @@ function evaluation(username, roomId) {
 function groupOrOneCheck() {
     if (groupchat.checked) {
         document.getElementById('check').style.visibility = 'visible';
-        document.getElementById("room-capacity").value = 5;
+        // document.getElementById("room-capacity").value = 5;
         document.getElementById("room-capacity").disabled = false;
         document.getElementById('check').style.visibility = 'visible';
     } else {
