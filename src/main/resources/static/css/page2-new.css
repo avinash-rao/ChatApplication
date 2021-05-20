@@ -166,6 +166,7 @@ input {
 }
 
 input[type=text],
+input[type=number],
 select {
   width: 100%;
   padding: 12px 20px;
@@ -201,4 +202,29 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: #45a049;
+}
+
+#radio {
+  margin-top: 10px;
+}
+
+#group-chat,
+#one-chat {
+  margin-top: -1px;
+  vertical-align: middle;
+  display: inline-block;
+  /* vertical-align: bottom; */
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: gray;
+}
+
+#room-capacity {
+  margin-top: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
 }

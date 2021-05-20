@@ -25,7 +25,7 @@ public class ChatController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    @MessageMapping("/chat.sendMessage/{this.roomId}")
+    @MessageMapping("/chat.sendMessage/{chatMessage.getRoomId()}")
     public void sendMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
         String session_username = simpMessageHeaderAccessor.getSessionAttributes().get("username").toString();
 
@@ -34,7 +34,7 @@ public class ChatController {
             messagingTemplate.convertAndSend("/topic/" + session_username, chatMessage);
             return;
         }
-        messagingTemplate.convertAndSend("/topic/" + chatService.getRoomId(), chatMessage);
+        messagingTemplate.convertAndSend("/topic/" + chatMessage.getRoomId(), chatMessage);
     }
 
     @MessageMapping("/chat.addUser")
