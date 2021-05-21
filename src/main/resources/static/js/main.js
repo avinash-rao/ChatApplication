@@ -30,12 +30,13 @@ function randomNumberGenerator(min, max) {
 
 function validation(user) {
     var user = document.getElementById("name-to-create").value;
-    var numbers = /^[0-9]+$/;
+    var regExp = /^[A-Za-z ]+$/;
+    var isValid = regExp.test(user);
 
     if (user == "") {
         alert(" Username Cannot be empty");
         return false;
-    } else if (user.match(numbers)) {
+    } else if (!isValid) {
         alert("Username of String  only");
         return false;
     }
@@ -45,7 +46,8 @@ function validation(user) {
 function evaluation(username, roomId) {
     var user = document.getElementById("name-to-join").value;
     var roomId = document.getElementById("roomid").value;
-    var numbers = /^[0-9]+$/;
+    var regExp = /^[A-Za-z ]+$/;
+    var isValid = regExp.test(user);
     if ((user == "" && roomId == "")) {
         alert(" User and RoomId Required ,Cannot be empty");
         return false;
@@ -55,7 +57,7 @@ function evaluation(username, roomId) {
     } else if (roomId == "") {
         alert(" roomId Required ,Cannot be empty");
         return false;
-    } else if (user.match(numbers)) {
+    } else if (!isValid) {
         alert("Username in Strings only");
         return false;
     }
